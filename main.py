@@ -19,10 +19,11 @@ def main():
     game_clock = pygame.time.Clock()
     dt = 0
 
+    player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
+
     # Game Loop
     while(1):
         log_state()
-        player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -30,8 +31,8 @@ def main():
 
         pygame.Surface.fill(screen, black_background)
 
+        player.update(dt)
         player.draw(screen)
-
         pygame.display.flip() # refresh entire screen
 
         dt = game_clock.tick(60) / 1000
