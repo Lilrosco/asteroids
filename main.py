@@ -50,8 +50,18 @@ def main():
 
         for update_object in updatable:
             update_object.update(dt)
-        
+
+        # Collision detection if player is hit
         for asteroid in asteroids:
+
+            # See if asteroid was hit by shot
+            for shot in shots:
+                if shot.has_collided(asteroid):
+                    log_event("asteroid_shot")
+                    asteroid.split()
+                    shot.kill()
+
+            # See if player was hit
             if asteroid.has_collided(player):
                 log_event("player_hit")
                 print("Game over!")
