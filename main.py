@@ -1,10 +1,11 @@
 # This allows us to use code from the open-source
 # pygame library throughout this file
 import pygame
+import sys
 
 # Import all of the constants
 from constants import *
-from logger import log_state
+from logger import log_state, log_event
 from player import *
 from asteroid import *
 from asteroidfield import *
@@ -46,6 +47,12 @@ def main():
 
         for update_object in updatable:
             update_object.update(dt)
+        
+        for asteroid in asteroids:
+            if asteroid.has_collided(player):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
 
         pygame.display.flip() # refresh entire screen
 
